@@ -1,0 +1,18 @@
+{
+  "name": "cl253-cli",
+  "version": "0.0.1",
+  "description": "Applied to Cl253 SSpa and independent react spa",
+  "bin": {
+    "cl253-cli": "bin/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/npm/npm.git"
+  },
+  "author": "bobo",
+  "license": "ISC",
+  "devDependencies": {
+    "child_process": "^1.0.2",
+    "commander": "^4.1.0"
+  }
+}
