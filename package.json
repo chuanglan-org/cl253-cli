@@ -3,16 +3,24 @@
   "version": "0.0.1",
   "description": "Applied to Cl253 SSpa and independent react spa",
   "bin": {
-    "cl253-cli": "bin/index"
+    "cl253-cli": "bin/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/npm/npm.git"
+    "url": "https://github.com/chanlan253/cl253-cli.git"
   },
   "author": "bobo",
   "license": "ISC",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
+    "chalk": "^3.0.0",
     "child_process": "^1.0.2",
-    "commander": "^4.1.0"
+    "commander": "^4.1.0",
+    "download-git-repo": "^3.0.2",
+    "fs-extra": "^8.1.0",
+    "inquirer": "^7.0.3",
+    "mem-fs": "^1.1.3",
+    "mem-fs-editor": "^6.0.0",
+    "ora": "^4.0.3"
   }
 }
