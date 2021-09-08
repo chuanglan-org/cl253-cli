@@ -1,13 +1,13 @@
 {
   "name": "cl253-cli",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Applied to Cl253 SSpa and independent react spa",
   "bin": {
     "cl253-cli": "bin/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chanlan253/cl253-cli.git"
+    "url": "https://github.com/chuanglan-org/cl253-cli.git"
   },
   "author": "bobo",
   "license": "ISC",

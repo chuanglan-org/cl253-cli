@@ -65,7 +65,7 @@ project.prototype.generate = function () {
   const downloadSpinner = ora('正在下载模板，请稍等...');
   downloadSpinner.start();
   /*开始下载模板*/
-  const gitRepositories = this.options.appType === 1 ? 'direct:https://github.com/chanlan253/cl253-cli-sspa.git' : 'direct:https://github.com/chanlan253/cl253-cli-spa.git';
+  const gitRepositories = this.options.appType === 1 ? 'direct:https://github.com/chuanglan-org/cl253-cli-sspa.git' : 'direct:https://github.com/chuanglan-org/cl253-cli-spa.git';
   download(gitRepositories, downloadPath, {clone: true}, (err) => {
     if (err) {
       downloadSpinner.color = 'red';
@@ -74,7 +74,6 @@ project.prototype.generate = function () {
     }
     downloadSpinner.color = 'green';
     downloadSpinner.succeed('下载模板成功');
-    console.log();
     const filesSpinner = ora('开始创建项目文件，请稍等...');
     const copyFiles = getDirFileName(downloadPath);
     const injectFiles = ['package.json', 'app.config.js'];
