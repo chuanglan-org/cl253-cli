@@ -26,7 +26,7 @@ project.prototype.create = function () {
       name: 'appName',
       message: "您的项目名称是什么？",
       validate: function (value) {
-        let pass = value.match(/^[a-zA-Z_\-]+$/);
+        let pass = value.match(/^[a-z0-9_\-]+$/i);
         if (pass) {
           return true;
         }
@@ -72,9 +72,8 @@ project.prototype.generate = function () {
       downloadSpinner.fail(err.message);
       return;
     }
-    downloadSpinner.color = 'green';
-    downloadSpinner.succeed('下载模板成功');
-    const filesSpinner = ora('开始创建项目文件，请稍等...');
+    downloadSpinner.color = 'cyan';
+    downloadSpinner.text('下载模板成功,开始解压...');
     const copyFiles = getDirFileName(downloadPath);
     const injectFiles = ['package.json', 'app.config.js'];
 
@@ -108,9 +107,7 @@ project.prototype.generate = function () {
         console.log(chalk.green(`npm run dev (需要引入智能云外框架项目)`));
         console.log(chalk.green(`npm run start (本地开发)`));
       }
-
     });
-
   })
 };
 

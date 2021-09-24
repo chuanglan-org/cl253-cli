@@ -1,19 +1,13 @@
 const path = require('path');
-const chalk = require('chalk');
 const packages = require(path.resolve(__dirname, '../package.json'));
-const fse = require('fs-extra');
-//获得脚手架版本
-function getPackageVersion() {
-  return packages.version;
-}
+exports.version=packages.version; //项目版本号
 
-exports.getPackageVersion = getPackageVersion;
-
-function getDirFileName(dir) {
+/* ========== 得到需要copy文件 ========== */
+exports.getDirFileName=(dir)=>{
   try {
     const files = fse.readdirSync(dir);
     const filesToCopy = [];
-    const injectFiles=['package.json','app.config.js'];
+    const injectFiles=['package.json','app.config.js']; //这两需求排除的文件
     files.forEach((file) => {
       if (file.indexOf(injectFiles) > -1) return;
       filesToCopy.push(file);
@@ -23,5 +17,3 @@ function getDirFileName(dir) {
     return [];
   }
 }
-
-exports.getDirFileName = getDirFileName;
