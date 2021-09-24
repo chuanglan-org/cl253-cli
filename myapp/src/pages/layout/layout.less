@@ -1,0 +1,101 @@
+@menu_w: 180px;
+@header_h: 54px;
+@transition_time: 0.3s;
+:global(.child_menuWrap) {
+  position: fixed;
+  z-index: 90;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  width: @menu_w;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #f0f1f2;
+  transition: all @transition_time;
+  .menu_content {
+    height: 100%;
+    padding-top: @header_h;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .nav_wrap {
+    flex: 1;
+  }
+  h2.childTitle {
+    margin: 0;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #252a3d;
+  }
+}
+:global(.wrap_content) {
+  padding-left: @menu_w;
+  padding-top: @header_h;
+  transition: all @transition_time;
+  position: relative;
+}
+.nav_list {
+  p,
+  a {
+    user-select: none;
+    position: relative;
+    display: block;
+    height: 42px;
+    line-height: 42px;
+    color: #666a77;
+    font-size: 14px;
+    padding-left: 24px;
+    cursor: pointer;
+    &:hover {
+      background: #f7f8f9;
+    }
+  }
+  a.active {
+    background: #fff;
+    color: #252a3d;
+  }
+}
+.nav_arrow {
+  position: absolute;
+  right: 20px;
+  font-size: 12px;
+  top: 16px;
+  transform: rotate(-90deg);
+  transition: all @transition_time;
+  &.active {
+    transform: rotate(0);
+  }
+}
+.childnav {
+  overflow: hidden;
+  opacity: 0;
+  transition: all @transition_time;
+  &.active {
+    opacity: 1;
+  }
+  a {
+    padding-left: 44px;
+  }
+}
+/* 滚动条组件 */
+.scrollbar {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  .scroll_wrap {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-right: -20px;
+    padding-right: 20px;
+  }
+}

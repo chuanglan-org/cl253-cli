@@ -37,6 +37,7 @@ program
   .version(version, '-v, --version', '当前版本')
   .command('init [dirname]')
   .description('创建新应用')
+  .alias('i')
   .action(dirname => {
     if (dirname && fse.existsSync(dirname)) {
       setProjectName("当前目录已存在同名文件夹，请重新命名")

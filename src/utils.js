@@ -1,4 +1,6 @@
 const path = require('path');
+const fse = require('fs-extra');
+
 const packages = require(path.resolve(__dirname, '../package.json'));
 exports.version=packages.version; //项目版本号
 
@@ -14,6 +16,7 @@ exports.getDirFileName=(dir)=>{
     });
     return filesToCopy;
   } catch (e) {
+    console.error(e)
     return [];
   }
 }

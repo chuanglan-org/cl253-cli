@@ -1,6 +1,6 @@
 {
   "name": "cl253-cli",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Applied to Cl253 SSpa and independent react spa",
   "bin": {
     "cl253-cli": "bin/index.js"
@@ -11,7 +11,7 @@
   },
   "author": "bobo",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^8.2.0",
     "download-git-repo": "^3.0.2",
