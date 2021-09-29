@@ -1,6 +1,6 @@
 {
   "name": "cl253-cli",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Applied to Cl253 SSpa and independent react spa",
   "bin": {
     "cl253-cli": "bin/index.js"

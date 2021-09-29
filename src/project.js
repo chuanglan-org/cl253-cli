@@ -45,8 +45,8 @@ project.prototype.create = function () {
       name: 'appType',
       message: '选择你要创建的项目类型',
       choices: [
-        {name: '创蓝智能云微应用', value: 1},
-        {name: '独立react项目', value: 2}
+        {name: '1.创蓝智能云微应用', value: 1},
+        {name: '2.独立react项目', value: 2}
       ],
     },
   ];
