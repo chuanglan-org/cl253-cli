@@ -65,7 +65,8 @@ project.prototype.generate = function () {
   const downloadSpinner = ora('正在下载模板，请稍等...');
   downloadSpinner.start();
   /*开始下载模板*/
-  const gitRepositories = this.options.appType === 1 ? 'github:chuanglan-org/cl253-cli-sspa#master' : 'github:chuanglan-org/cl253-cli-spa#master';
+  const gitRepositories = this.options.appType === 1 ? 'direct:https://code.aliyun.com/cl253-cli/cl253-cli-sspa.git' : 'direct:https://code.aliyun.com/cl253-cli/cl253-cli-spa.git';
+
   download(gitRepositories, downloadPath, {clone: true}, (err) => {
     if (err) {
       downloadSpinner.color = 'red';
