@@ -1,6 +1,6 @@
 {
   "name": "cl253-cli",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Applied to Cl253 SSpa and independent react spa",
   "bin": {
     "cl253-cli": "bin/index.js"
@@ -20,5 +20,8 @@
     "mem-fs": "^2.2.1",
     "mem-fs-editor": "^9.3.0",
     "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.17.0"
   }
 }
