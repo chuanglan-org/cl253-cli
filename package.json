@@ -1,27 +1,29 @@
 {
   "name": "cl253-cli",
-  "version": "1.0.7",
+  "private": true,
+  "version": "2.0.0",
+  "workspaces": [
+    "packages/*"
+  ],
   "description": "Applied to Cl253 SSpa and independent react spa",
-  "bin": {
-    "cl253-cli": "bin/index.js"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/chuanglan-org/cl253-cli.git"
   },
-  "author": "bobo",
-  "license": "ISC",
-  "dependencies": {
-    "chalk": "^4.1.2",
-    "commander": "^8.2.0",
-    "download-git-repo": "^3.0.2",
-    "fs-extra": "^10.0.0",
-    "inquirer": "^8.1.5",
-    "mem-fs": "^2.2.1",
-    "mem-fs-editor": "^9.3.0",
-    "ora": "^5.4.1"
+  "scripts": {
+    "cli": "cd packages/cl253-cli && node bin/index.js"
   },
   "devDependencies": {
-    "eslint": "^8.17.0"
+    "@babel/core": "^7.20.12",
+    "@babel/eslint-parser": "^7.19.1",
+    "eslint": "^8.34.0",
+    "eslint-config-ali": "^14.0.2",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.4"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }

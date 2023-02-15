@@ -1,0 +1,27 @@
+{
+  "name": "cl253-cli",
+  "version": "2.0.0",
+  "description": "ChuangLan FE cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chuanglan-org/cl253-cli",
+    "directory": "packages/cl253-cli"
+  },
+  "bin": {
+    "cl253-cli": "./bin/index.js"
+  },
+  "files": [
+    "bin/*",
+    "src/*"
+  ],
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^9.5.0",
+    "fs-extra": "^11.1.0",
+    "inquirer": "^8.2.5",
+    "valid-filename": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
