@@ -4,7 +4,10 @@ const { Command } = require("commander");
 const fse = require("fs-extra");
 const path = require("path");
 const packageJson = require("../package.json");
+const ora = require("ora");
+
 const { getProjectDir, checkTemp, setProjectParams, tempList } = require("../src/utils");
+const { getTempFile, downTempFile, editTemp } = require("./downloader");
 
 const { log } = console;
 
@@ -14,17 +17,26 @@ const creatProject = async (dirname, { temp }) => {
     // 如果命令里存在模板类型，检查模板
     checkTemp(temp);
   }
-  const dir = await getProjectDir(dirname);
-  const root = path.resolve(dir); // 项目文件夹
-  const appName = path.basename(root); // 初期的项目名称
-  const projectParams = await setProjectParams({ appName, temp });
+  const projectDir = await getProjectDir(dirname); // 文件夹名称，为空表示当前
+  const rootDir = path.resolve(projectDir); // 项目文件夹路径
+  const appName = path.basename(rootDir); // 项目的初始化的名称===文件夹名称
+  const projectParams = await setProjectParams({ appName, temp }); // 设置一些初始值
   const tempName = tempList.filter((item) => item.value === projectParams.app_temp)[0]?.name;
-  log();
-  log(`准备在${chalk.green(root)}路径下创建${chalk.blue.bold(`<${tempName}>`)}`);
-  log();
-  if (dir) {
-    fse.ensureDirSync(dir); // 项目文件夹建好
+
+  log(`准备在${chalk.green(rootDir)}路径下创建${chalk.blue.bold(`<${tempName}>`)}`);
+  if (projectDir) {
+    const spinner = ora("创建项目文件夹").start();
+    fse.ensureDirSync(projectDir); // 项目文件夹建好
+    spinner.succeed(chalk.green("项目文件夹创建成功"));
   }
+
+  // 拉取模板资源
+  const gitData = await getTempFile({ tempName });
+
+  // 下载资源
+  await downTempFile({ gitData, rootDir, projectParams });
+  // 配置信息，把模板里的内容进行参数配置
+  await editTemp({ rootDir, projectParams });
 };
 
 /* ========== 初始化项目 ========== */

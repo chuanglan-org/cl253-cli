@@ -1,3 +1,5 @@
+"use strict";
+
 const inquirer = require("inquirer");
 const fse = require("fs-extra");
 const validFilename = require("valid-filename");

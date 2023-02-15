@@ -1,0 +1,122 @@
+// 发送模块
+.send_box {
+  max-width: 1300px;
+  .content_bg {
+    background: rgba(59, 113, 254, 0.01);
+    border: 1px solid #ebedf0;
+    border-radius: 3px;
+    padding: 20px 0 0 0;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .content_bg_disabled{
+    .content_bg;
+    &::after{
+      content: "";
+      display: block;
+      cursor: not-allowed;
+      background: rgba(59, 113, 254, 0.01);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+    }
+    
+  }
+}
+.nocontent {
+  .ant-modal-content {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+//重置滚动条样式
+.reset-scrollbar {
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background-color: #fff;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #fff;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #acb1bf;
+    border-radius: 4px;
+  }
+}
+.ant-pagination {
+  float: none;
+  text-align: right;
+}
+
+.ant-pagination-total-text {
+  float: left;
+}
+
+#MainChildApp {
+  .reset-linkbutton {
+    button {
+      padding-left: 0;
+      min-width: 0;
+    }
+    :last-child {
+      padding-right: 0;
+    }
+  }
+  .form-wrap {
+    .ant-form-item {
+      margin-bottom: 20px;
+    }
+  }
+}
+.pre {
+  margin: 0;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.pre_wrap{
+  white-space: pre-wrap;
+}
+
+.pre_select{
+  .ant-select-selection-item,
+  .ant-select-item-option-content{
+    .pre_wrap
+  }
+}
+
+.lineBase(@a) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  -webkit-line-clamp: @a;
+}
+
+.line2 {
+  .lineBase(2);
+}
+
+.line3 {
+  .lineBase(3);
+}
+
+.line4 {
+  .lineBase(4);
+}
+
+.line10 {
+  .lineBase(10);
+}
+// 选择模版样式
+.tem_name {
+  border-bottom: 1px solid #3a72ff;
+  padding: 0 5px;
+  color: #3a72ff;
+}
