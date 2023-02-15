@@ -8,12 +8,14 @@ const fse = require("fs-extra");
 const download = require("download");
 
 const { log } = console;
+// const downVesion="master";
+const downVesion="2.0.0"
 /* ========== 获取模板资源 ========== */
 const getTempFile = ({ tempName }) => {
   return new Promise((resolve, reject) => {
     const spinner = ora(`准备远程拉取${chalk.blue.bold(tempName)}模板资源`).start();
     axios
-      .get("https://api.github.com/repos/chuanglan-org/cl253-cli/git/trees/master?recursive=1")
+      .get(`https://api.github.com/repos/chuanglan-org/cl253-cli/git/trees/${downVesion}?recursive=1`)
       .then((res) => {
         spinner.succeed(chalk.green("数据拉取成功！"));
         resolve(res.data?.tree);
@@ -42,7 +44,7 @@ const downTempFile = ({ gitData, rootDir, projectParams }) => {
     const exportUrl = path.join(downloadPath, currentDir);
     return new Promise((resolve, reject) => {
       spinner.text = `准备下载${currentDir}`;
-      download(`https://github.com/chuanglan-org/cl253-cli/raw/master/${ele.path}`)
+      download(`https://github.com/chuanglan-org/cl253-cli/raw/${downVesion}/${ele.path}`)
         .then((data) => {
           spinner.text = `${currentDir}下载完成，准备写入`;
           fse.writeFileSync(exportUrl, data);
