@@ -6,7 +6,7 @@ const path = require("path");
 const packageJson = require("../package.json");
 const ora = require("ora");
 
-const { getProjectDir, checkTemp, setProjectParams, tempList } = require("../src/utils");
+const { getProjectDir, checkTemp, setProjectParams, tempList, clearConsole } = require("../src/utils");
 const { getTempFile, downTempFile, editTemp } = require("./downloader");
 
 const { log } = console;
@@ -37,6 +37,13 @@ const creatProject = async (dirname, { temp }) => {
   await downTempFile({ gitData, rootDir, projectParams });
   // 配置信息，把模板里的内容进行参数配置
   await editTemp({ rootDir, projectParams });
+  clearConsole();
+  log(chalk.blue("项目已经创建完成，按照以下命令开始开发："));
+  if (projectDir) {
+    log(chalk.green.bold(`cd ${projectDir}`));
+  }
+  log(chalk.green("npm install 或者 yarn install"));
+  log(chalk.green("npm run dev (本地开发)"));
 };
 
 /* ========== 初始化项目 ========== */

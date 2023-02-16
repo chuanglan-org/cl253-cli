@@ -22,7 +22,6 @@
     "fs-extra": "^11.1.0",
     "inquirer": "^8.2.5",
     "ora": "^5.4.1",
-    "request": "^2.87.0",
     "valid-filename": "^3.1.0"
   },
   "engines": {

@@ -137,9 +137,15 @@ const setProjectParams = ({ appName, temp }) => {
   });
 };
 
+/* ========== 清除console打印的日志  ========== */
+const clearConsole = () => {
+  process.stdout.write(process.platform === "win32" ? "\x1B[2J\x1B[0f" : "\x1B[2J\x1B[3J\x1B[H");
+};
+
 module.exports = {
   getProjectDir,
   checkTemp,
   setProjectParams,
   tempList,
+  clearConsole,
 };

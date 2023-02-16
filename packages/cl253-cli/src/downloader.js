@@ -9,7 +9,7 @@ const download = require("download");
 
 const { log } = console;
 // const downVesion="master";
-const downVesion="2.0.0"
+const downVesion = "2.0.0";
 /* ========== 获取模板资源 ========== */
 const getTempFile = ({ tempName }) => {
   return new Promise((resolve, reject) => {
@@ -38,10 +38,12 @@ const downTempFile = ({ gitData, rootDir, projectParams }) => {
     process.exit(1);
   }
   const downloadPath = path.join(rootDir, "__download__"); // 模板存放临时目录
-  fse.ensureDirSync(downloadPath);
   const promiseArr = filterList.map((ele) => {
     const currentDir = ele.path.replace(`${tempdir}/`, "");
     const exportUrl = path.join(downloadPath, currentDir);
+    const exportUrlArr = exportUrl.split("/");
+    exportUrlArr.pop();
+    fse.ensureDirSync(exportUrlArr.join("/"));
     return new Promise((resolve, reject) => {
       spinner.text = `准备下载${currentDir}`;
       download(`https://github.com/chuanglan-org/cl253-cli/raw/${downVesion}/${ele.path}`)
@@ -81,12 +83,15 @@ const editTemp = ({ rootDir, projectParams }) => {
     let package_content = JSON.parse(fse.readFileSync(package_file, "utf8"));
     package_content = { ...package_content, name: projectParams.app_name, description: projectParams.app_desc };
     fse.writeFileSync(package_file, JSON.stringify(package_content, null, 2) + os.EOL);
-    spinner.succeed("配置package.json完成");
   } catch (error) {
-    console.log(error);
-    spinner.fail("配置package.json失败");
+    spinner.fail(chalk.red("配置package.json失败"));
+    log("\n");
+    log(error);
     process.exit(1);
   }
+  fse.copySync(downloadPath, rootDir);
+  fse.removeSync(downloadPath);
+  spinner.succeed(chalk.green("全部配置完成！"));
 };
 
 module.exports = {
