@@ -1,16 +1,30 @@
 {
   "name": "cl-scripts",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "chuanglan scripts fro cl253-cli",
   "author": "",
   "license": "ISC",
   "files": [
     "bin",
-    "config",
-    "scripts"
+    "src"
   ],
   "bin": {
-    "react-scripts": "./bin/index.js"
+    "cl-scripts": "./bin/index.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "cross-spawn": "^7.0.3",
+    "css-loader": "^6.7.3",
+    "fs-extra": "^11.1.0",
+    "mini-css-extract-plugin": "^2.7.2",
+    "postcss": "^8.4.21",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-loader": "^7.0.2",
+    "postcss-normalize": "^10.0.1",
+    "postcss-preset-env": "^8.0.1"
   },
   "browserslist": {
     "production": [
