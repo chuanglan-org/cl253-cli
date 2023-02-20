@@ -17,6 +17,13 @@
 </tr>
 
 <tr>
+<td>devOpen</td>
+<td>true</td>
+<td>Boolean</td>
+<td>开发环境是否自动打开浏览器</td>
+</tr>
+
+<tr>
 <td>port</td>
 <td>8080</td>
 <td>Number</td>

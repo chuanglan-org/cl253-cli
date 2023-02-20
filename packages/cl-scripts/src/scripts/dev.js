@@ -20,7 +20,6 @@ const compiler = createCompiler(baseConfig); // 编译过程中的hook
 const ignoredFiles = (appSrc) => {
   return new RegExp(`^(?!${escape(path.normalize(`${appSrc}/`).replace(/[\\]+/g, "/"))}).+/node_modules/`, "g");
 };
-
 const devServer = new WebpackDevServer(
   {
     allowedHosts: "all",
@@ -29,10 +28,16 @@ const devServer = new WebpackDevServer(
       "Access-Control-Allow-Methods": "*",
       "Access-Control-Allow-Headers": "*",
     },
+    open: AppConfig.devOpen
+      ? {
+          target: [`http://localhost:${AppConfig.port}`],
+        }
+      : false,
     compress: true,
     static: {
       directory: appPaths.appPublic,
       publicPath: [AppConfig.publicPath],
+      watch: true,
     },
     client: {
       overlay: { errors: true, warnings: false },
@@ -52,4 +57,16 @@ devServer.startCallback(() => {
   if (process.stdout.isTTY) {
     clearConsole();
   }
+});
+
+["SIGINT", "SIGTERM"].forEach(function (sig) {
+  process.on(sig, function () {
+    devServer.close();
+    process.exit();
+  });
+});
+
+process.stdin.on("end", function () {
+  devServer.close();
+  process.exit();
 });

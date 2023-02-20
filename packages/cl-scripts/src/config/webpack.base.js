@@ -2,7 +2,7 @@
 
 const webpack = require("webpack");
 const appPaths = require("../config/app_path");
-const appConfig = require("../config/app_config");
+const AppConfig = require("../config/app_config");
 const TerserJSPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
@@ -48,7 +48,7 @@ module.exports = (webpackEnv) => {
               "postcss-normalize",
             ],
           },
-          sourceMap: isEnvProduction ? appConfig.sourceMap : isEnvDevelopment,
+          sourceMap: isEnvProduction ? AppConfig.sourceMap : isEnvDevelopment,
         },
       },
     ].filter(Boolean);
@@ -57,7 +57,7 @@ module.exports = (webpackEnv) => {
         {
           loader: require.resolve("resolve-url-loader"),
           options: {
-            sourceMap: isEnvProduction ? appConfig.sourceMap : isEnvDevelopment,
+            sourceMap: isEnvProduction ? AppConfig.sourceMap : isEnvDevelopment,
             root: appPaths.appSrc,
           },
         },
@@ -78,6 +78,15 @@ module.exports = (webpackEnv) => {
     }
     return loaders;
   };
+  // 这只默认全局变量
+  const getDefineVar = () => {
+    const defineVar = { ...AppConfig.env, NODE_ENV: webpackEnv };
+    const obj = {};
+    Object.keys(defineVar).forEach((key) => {
+      obj[`process.env.${key}`] = JSON.stringify(defineVar[key]);
+    });
+    return obj;
+  };
 
   return {
     target: "browserslist",
@@ -85,32 +94,32 @@ module.exports = (webpackEnv) => {
     mode: isEnvProduction ? "production" : "development",
     bail: isEnvProduction, // 当生产环境时，只要编译报错就退出
     devtool: isEnvProduction
-      ? appConfig.sourceMap
+      ? AppConfig.sourceMap
         ? "source-map"
         : false
       : isEnvDevelopment && "cheap-module-source-map",
-    entry: appConfig.entry,
+    entry: AppConfig.entry,
     output: {
-      path: appConfig.buildDir,
+      path: AppConfig.buildDir,
       pathinfo: isEnvDevelopment,
       filename: isEnvProduction ? "static/js/[name].[contenthash:8].js" : isEnvDevelopment && "static/js/[name].js",
       chunkFilename: isEnvProduction
         ? "static/js/[name].[contenthash:8].chunk.js"
         : isEnvDevelopment && "static/js/[name].chunk.js",
       assetModuleFilename: "static/media/[name].[hash][ext]",
-      publicPath: appConfig.publicPath,
+      publicPath: AppConfig.publicPath,
     },
     resolve: {
       modules: ["node_modules", appPaths.appNodeModules],
-      extensions: appConfig.extensions,
+      extensions: AppConfig.extensions,
       alias: {
         ...webpackmodules.modulesAlias,
-        ...appConfig.modulesAlias,
+        ...AppConfig.modulesAlias,
       },
     },
     module: {
       rules: [
-        appConfig.sourceMap && {
+        AppConfig.sourceMap && {
           enforce: "pre",
           exclude: /@babel(?:\/|\\{1,2})runtime/,
           test: /\.(js|mjs|jsx|ts|tsx|css)$/,
@@ -121,6 +130,9 @@ module.exports = (webpackEnv) => {
             {
               test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
               type: "asset",
+              generator: {
+                filename: "static/img/[hash][ext][query]",
+              },
               parser: {
                 dataUrlCondition: {
                   maxSize: 10000,
@@ -145,7 +157,7 @@ module.exports = (webpackEnv) => {
                 {
                   loader: require.resolve("file-loader"),
                   options: {
-                    name: "static/media/[name].[hash].[ext]",
+                    name: "static/img/[name].[hash].[ext]",
                   },
                 },
               ],
@@ -194,8 +206,8 @@ module.exports = (webpackEnv) => {
                   isEnvProduction ? "production" : isEnvDevelopment && "development",
                   ["babel-plugin-named-asset-import", "babel-preset-react-app", "cl-scripts"]
                 ),
-                sourceMaps: appConfig.sourceMap,
-                inputSourceMap: appConfig.sourceMap,
+                sourceMaps: AppConfig.sourceMap,
+                inputSourceMap: AppConfig.sourceMap,
               },
             },
             // 所有的css样式都不进行has值编译
@@ -203,7 +215,7 @@ module.exports = (webpackEnv) => {
               test: /\.css$/,
               use: getStyleLoaders({
                 importLoaders: 1,
-                sourceMap: isEnvProduction ? appConfig.sourceMap : isEnvDevelopment,
+                sourceMap: isEnvProduction ? AppConfig.sourceMap : isEnvDevelopment,
                 modules: {
                   mode: "icss",
                 },
@@ -211,12 +223,12 @@ module.exports = (webpackEnv) => {
               sideEffects: true,
             },
             // 如果包含sass样式
-            (appConfig.styleType.includes("sass") || appConfig.styleType.includes("scss")) && {
+            (AppConfig.styleType.includes("sass") || AppConfig.styleType.includes("scss")) && {
               test: /\.(scss|sass)$/,
               use: getStyleLoaders(
                 {
                   importLoaders: 3,
-                  sourceMap: isEnvProduction ? appConfig.sourceMap : isEnvDevelopment,
+                  sourceMap: isEnvProduction ? AppConfig.sourceMap : isEnvDevelopment,
                   modules: {
                     mode: "local",
                     localIdentName: "[local]--[hash:base64:5]",
@@ -229,12 +241,12 @@ module.exports = (webpackEnv) => {
               ),
             },
             // 如果包含less样式
-            appConfig.styleType.includes("less") && {
+            AppConfig.styleType.includes("less") && {
               test: /\.less$/,
               use: getStyleLoaders(
                 {
                   importLoaders: 3,
-                  sourceMap: isEnvProduction ? appConfig.sourceMap : isEnvDevelopment,
+                  sourceMap: isEnvProduction ? AppConfig.sourceMap : isEnvDevelopment,
                   modules: {
                     mode: "local",
                     localIdentName: "[local]--[hash:base64:5]",
@@ -287,8 +299,9 @@ module.exports = (webpackEnv) => {
         inject: true,
         template: appPaths.appHtml,
         templateParameters: {
-          title: appConfig.title || "",
+          title: AppConfig.title || "",
           isdev: process.env.NODE_ENV === "development",
+          publicPath: AppConfig.publicPath,
         },
         minify: isEnvProduction
           ? {
@@ -306,12 +319,7 @@ module.exports = (webpackEnv) => {
           : false,
       }),
       // 环境变量
-      new webpack.DefinePlugin({
-        "process.env": Object.keys({ ...appConfig.env, NODE_ENV: webpackEnv }).reduce((env, key) => {
-          env[key] = JSON.stringify(appConfig.env[key]);
-          return env;
-        }, {}),
-      }),
+      new webpack.DefinePlugin(getDefineVar()),
       // 让本地能够刷新
       isEnvDevelopment &&
         new ReactRefreshWebpackPlugin({
@@ -328,7 +336,7 @@ module.exports = (webpackEnv) => {
 
       new WebpackManifestPlugin({
         fileName: "asset-manifest.json",
-        publicPath: appConfig.publicPath,
+        publicPath: AppConfig.publicPath,
         generate: (seed, files, entrypoints) => {
           const manifestFiles = files.reduce((manifest, file) => {
             manifest[file.name] = file.path;
@@ -345,7 +353,7 @@ module.exports = (webpackEnv) => {
         resourceRegExp: /^\.\/locale$/,
         contextRegExp: /moment$/,
       }),
-      ...appConfig.plugins,
+      ...AppConfig.plugins,
     ].filter(Boolean),
     infrastructureLogging: {
       level: "none",

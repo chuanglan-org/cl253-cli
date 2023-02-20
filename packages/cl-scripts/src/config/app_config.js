@@ -49,10 +49,10 @@ const getEntry = (_entry) => {
 };
 
 // 配置说明 https://github.com/chuanglan-org/cl253-cli/blob/master/docs/appConfig.md
-
 module.exports = {
   title: appPackageJson.name || "react App",
   port: appConfig.port || 8080,
+  devOpen: appConfig.devOpen === undefined ? true : appConfig.devOpen,
   proxy: appConfig.proxy || {},
   sourceMap: true,
   buildDir: appPaths.resolveApp(appConfig.buildDir || "dist"),
