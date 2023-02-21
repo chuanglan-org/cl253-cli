@@ -57,6 +57,7 @@ module.exports = {
   sourceMap: appConfig.sourceMap !== undefined ? appConfig.sourceMap : true,
   buildDir: appPaths.resolveApp(appConfig.buildDir || "dist"),
   Analyze: appConfig.Analyze !== undefined ? appConfig.Analyze : true,
+  buildZip: appConfig.buildZip !== undefined ? appConfig.buildZip : false,
   entry: getEntry({
     main: "src/main.js",
     ...(appConfig.entry || {}),

@@ -2,5 +2,6 @@
 module.exports = {
   port: 8081,
   devOpen: false,
-  Analyze: true,
+  Analyze: false,
+  buildZip: true,
 };

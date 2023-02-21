@@ -7,13 +7,15 @@ const appPaths = require("../config/app_path");
 const checkRequiredFiles = require("../utils/check_file");
 const AppConfig = require("../config/app_config");
 const getBaseConfig = require("../config/webpack.base");
-const { createCompiler } = require("../utils/webpack_hook");
 const WebpackDevServer = require("webpack-dev-server");
 const chalk = require("chalk");
+const address = require("address");
 
 process.on("unhandledRejection", (err) => {
   throw err;
 });
+
+console.log(chalk.blue(`${process.env.NODE_ENV}开始编译……`));
 
 if (!checkRequiredFiles(Object.values(AppConfig.entry))) {
   process.exit(1);
@@ -63,6 +65,20 @@ compiler.hooks.failed.tap("failed", async (stats) => {
 
 compiler.hooks.invalid.tap("invalid", () => {
   console.log("Compiling(重新编译中)...");
+});
+
+let isFirstCompiler = true;
+compiler.hooks.done.tap("done", () => {
+  if (isFirstCompiler) {
+    console.log(`访问地址:${chalk.blue(`http://localhost:${AppConfig.port}/`)}`);
+    try {
+      const localIp = address.ip();
+      console.log(`或者IP地址:${chalk.blue(`http://${localIp}:${AppConfig.port}/`)}`);
+    } catch (error) {
+      console.log("获取本地IP失败，尝试localhost访问");
+    }
+  }
+  isFirstCompiler = false;
 });
 
 // 随时中断

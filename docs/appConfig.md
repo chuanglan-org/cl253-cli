@@ -78,6 +78,13 @@
 </tr>
 
 <tr>
+<td>buildZip</td>
+<td>false</td>
+<td>Boolean</td>
+<td>是否开启build成功后自动把dist压缩成zip文件</td>
+</tr>
+
+<tr>
 <td>entry</td>
 <td><pre>{main: "src/main.js"}</pre></td>
 <td>Object</td>

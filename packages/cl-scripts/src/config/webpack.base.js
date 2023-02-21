@@ -16,6 +16,7 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const WebpackBar = require("webpackbar");
 const clearConsole = require("../utils/clear_console");
 const chalk = require("chalk");
+const FileManagerPlugin = require("filemanager-webpack-plugin");
 
 module.exports = (webpackEnv) => {
   const isEnvDevelopment = webpackEnv === "development";
@@ -309,6 +310,12 @@ module.exports = (webpackEnv) => {
                 `(${ctx.state.message.replace("Compiled successfully in", "耗时")})`
               )}`
             );
+            if (isEnvProduction) {
+              console.log(chalk.blue(`打包文件见目录${AppConfig.buildDir}`));
+              if (AppConfig.buildZip) {
+                console.log(chalk.gray("同时开启了压缩zip文件"));
+              }
+            }
           },
         },
       }),
@@ -371,6 +378,21 @@ module.exports = (webpackEnv) => {
         contextRegExp: /moment$/,
       }),
       isEnvProduction && AppConfig.Analyze && new BundleAnalyzerPlugin(),
+      isEnvProduction &&
+        AppConfig.buildZip &&
+        new FileManagerPlugin({
+          events: {
+            onEnd: {
+              delete: [appPaths.resolveApp("dist.zip")],
+              archive: [
+                {
+                  source: appPaths.resolveApp("dist"),
+                  destination: appPaths.resolveApp("dist.zip"),
+                },
+              ],
+            },
+          },
+        }),
       ...AppConfig.plugins,
     ].filter(Boolean),
     infrastructureLogging: {

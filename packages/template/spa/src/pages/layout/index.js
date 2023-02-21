@@ -30,7 +30,6 @@ export default () => {
     const token = localStorage.getItem("token");
     setIsLogin(true);
     setPageLoading(false);
-    // console.log(211);
     // if (!token) {
     //   setIsLogin(false);
     //   setPageLoading(false);

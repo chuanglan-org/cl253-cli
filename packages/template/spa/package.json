@@ -7,7 +7,6 @@
     "build": "cl-scripts build",
     "lint": "eslint --fix ./src"
   },
-  "author": "bobo",
   "license": "ISC",
   "dependencies": {
     "@ant-design/icons": "^5.0.1",

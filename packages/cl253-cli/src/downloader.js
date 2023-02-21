@@ -82,6 +82,7 @@ const editTemp = ({ rootDir, projectParams }) => {
     const package_file = path.join(downloadPath, "package.json");
     let package_content = JSON.parse(fse.readFileSync(package_file, "utf8"));
     package_content = { ...package_content, name: projectParams.app_name, description: projectParams.app_desc };
+    package_content.dependencies["react-scripts"] = "^2";
     fse.writeFileSync(package_file, JSON.stringify(package_content, null, 2) + os.EOL);
   } catch (error) {
     spinner.fail(chalk.red("配置package.json失败"));
