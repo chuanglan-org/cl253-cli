@@ -1,25 +1,26 @@
 "use strict";
-const path = require("path");
+process.env.BABEL_ENV = "development";
+process.env.NODE_ENV = "development";
+
+const webpack = require("webpack");
 const appPaths = require("../config/app_path");
 const checkRequiredFiles = require("../utils/check_file");
 const AppConfig = require("../config/app_config");
 const getBaseConfig = require("../config/webpack.base");
 const { createCompiler } = require("../utils/webpack_hook");
 const WebpackDevServer = require("webpack-dev-server");
-const clearConsole = require("../utils/clear_console");
+const chalk = require("chalk");
 
-process.env.BABEL_ENV = "development";
-process.env.NODE_ENV = "development";
+process.on("unhandledRejection", (err) => {
+  throw err;
+});
 
 if (!checkRequiredFiles(Object.values(AppConfig.entry))) {
   process.exit(1);
 }
 
 const baseConfig = getBaseConfig(process.env.NODE_ENV); // 获得基本配置
-const compiler = createCompiler(baseConfig); // 编译过程中的hook
-const ignoredFiles = (appSrc) => {
-  return new RegExp(`^(?!${escape(path.normalize(`${appSrc}/`).replace(/[\\]+/g, "/"))}).+/node_modules/`, "g");
-};
+const compiler = webpack(baseConfig);
 const devServer = new WebpackDevServer(
   {
     allowedHosts: "all",
@@ -53,12 +54,18 @@ const devServer = new WebpackDevServer(
   compiler
 );
 
-devServer.startCallback(() => {
-  if (process.stdout.isTTY) {
-    clearConsole();
-  }
+// 启动
+devServer.start();
+compiler.hooks.failed.tap("failed", async (stats) => {
+  console.log(chalk.red("❌ Failed to compile（编译失败）."));
+  process.exit();
 });
 
+compiler.hooks.invalid.tap("invalid", () => {
+  console.log("Compiling(重新编译中)...");
+});
+
+// 随时中断
 ["SIGINT", "SIGTERM"].forEach(function (sig) {
   process.on(sig, function () {
     devServer.close();

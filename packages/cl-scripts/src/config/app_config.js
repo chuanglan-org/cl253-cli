@@ -52,10 +52,11 @@ const getEntry = (_entry) => {
 module.exports = {
   title: appPackageJson.name || "react App",
   port: appConfig.port || 8080,
-  devOpen: appConfig.devOpen === undefined ? true : appConfig.devOpen,
+  devOpen: appConfig.devOpen !== undefined ? appConfig.devOpen : true,
   proxy: appConfig.proxy || {},
-  sourceMap: true,
+  sourceMap: appConfig.sourceMap !== undefined ? appConfig.sourceMap : true,
   buildDir: appPaths.resolveApp(appConfig.buildDir || "dist"),
+  Analyze: appConfig.Analyze !== undefined ? appConfig.Analyze : true,
   entry: getEntry({
     main: "src/main.js",
     ...(appConfig.entry || {}),
@@ -69,7 +70,7 @@ module.exports = {
     assets: "src/assets",
     ...(appConfig.modulesAlias || {}),
   }),
-  styleType: ["less"],
+  styleType: appConfig.styleType || ["less"],
   env: appConfig.env || {},
   plugins: appConfig.plugins || [],
   devServer: appConfig.devServer || {},

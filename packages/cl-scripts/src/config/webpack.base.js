@@ -12,11 +12,15 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const WebpackBar = require("webpackbar");
+const clearConsole = require("../utils/clear_console");
+const chalk = require("chalk");
 
 module.exports = (webpackEnv) => {
   const isEnvDevelopment = webpackEnv === "development";
   const isEnvProduction = webpackEnv === "production";
-  const webpackmodules = Modules();
+  const webpackmodules = Modules(); // 别名部分
   // 获得样式loader
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
@@ -295,6 +299,19 @@ module.exports = (webpackEnv) => {
       ],
     },
     plugins: [
+      new WebpackBar({
+        name: isEnvDevelopment ? "dev编译" : "build打包",
+        reporter: {
+          afterAllDone(ctx) {
+            clearConsole();
+            console.log(
+              `${chalk.green("编译成功")}${chalk.gray(
+                `(${ctx.state.message.replace("Compiled successfully in", "耗时")})`
+              )}`
+            );
+          },
+        },
+      }),
       new HtmlWebpackPlugin({
         inject: true,
         template: appPaths.appHtml,
@@ -353,6 +370,7 @@ module.exports = (webpackEnv) => {
         resourceRegExp: /^\.\/locale$/,
         contextRegExp: /moment$/,
       }),
+      isEnvProduction && AppConfig.Analyze && new BundleAnalyzerPlugin(),
       ...AppConfig.plugins,
     ].filter(Boolean),
     infrastructureLogging: {

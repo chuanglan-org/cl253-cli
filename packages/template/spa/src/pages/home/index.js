@@ -7,14 +7,14 @@ export default () => {
   const navigate = useNavigate();
   return (
     <Box title="应用列表">
-      <div>我是首页</div>
+      <div>首页1</div>
       <Button
         type="primary"
         onClick={() => {
           navigate("/login");
         }}
       >
-        跳转登录页面
+        登录页面
       </Button>
     </Box>
   );

@@ -71,6 +71,13 @@
 </tr>
 
 <tr>
+<td>Analyze</td>
+<td>false</td>
+<td>Boolean</td>
+<td>Build打包编译后是否开启构建包分析功能，设置打开后，每次编译后，都可以在http://127.0.0.1:8888/查看编译分析详细内容</td>
+</tr>
+
+<tr>
 <td>entry</td>
 <td><pre>{main: "src/main.js"}</pre></td>
 <td>Object</td>

@@ -4,7 +4,7 @@
   "description": "desc",
   "scripts": {
     "dev": "cl-scripts dev",
-    "build": "react-scripts build",
+    "build": "cl-scripts build",
     "lint": "eslint --fix ./src"
   },
   "author": "bobo",
