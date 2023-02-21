@@ -21,6 +21,7 @@ module.exports = {
     "no-case-declarations": "off",
     "prefer-const": "off", // 不强制不变的变量都用const
     "prefer-promise-reject-errors": "off", // 无需强制配置reject
+    "react/display-name": "off",
     "react/prop-types": "off", // 无需对props是否存在值校验
     "react/no-array-index-key": "off", // 允许使用数组的index作为key的索引
     "react/no-danger": "off", // 允许使用dangerouslySetInnerHTML赋值
@@ -31,9 +32,20 @@ module.exports = {
     "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
     "import/newline-after-import": "off",
-    "prettier/prettier": ["error", { endOfLine: "auto" }],
   },
   settings: {
     "import/ignore": ["node_modules"],
+    "import/resolver": {
+      // 忽略webpack 别名的报错
+      alias: {
+        map: [
+          ["@", "./src"],
+          ["components", "./src/components"],
+          ["pages", "./src/pages"],
+          ["assets", "./src/assets"],
+        ],
+        extensions: [".js", ".jsx", ".ts", ".less", ".json"],
+      },
+    },
   },
 };

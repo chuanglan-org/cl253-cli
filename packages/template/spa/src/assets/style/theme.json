@@ -1,0 +1,19 @@
+{
+  "token": {
+    "colorPrimary": "#3a72ff",
+    "colorSuccess": "#23c293",
+    "colorWarning": "#ffac2e",
+    "colorError": "#ff5b68",
+    "colorInfo": "#42adff",
+    "colorText": "rgba(37, 42, 61, 1)",
+    "colorTextSecondary": "#666a77",
+    "colorBorder": "#dfe1e5",
+    "colorBgSpotlight": "rgba(37, 42, 61, 0.8)",
+    "colorBgMask": "rgba(37,42,61,0.45)",
+    "colorTextTertiary": "#c0c3cc",
+    "colorBorderSecondary": "#EBEDF0",
+    "fontSize": 12,
+    "fontSizeSM": 12,
+    "borderRadius": 2
+  }
+}

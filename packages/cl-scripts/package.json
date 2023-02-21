@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.20.12",
+    "@babel/eslint-parser": "^7.19.1",
     "address": "^1.2.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@svgr/webpack": "^6.5.1",
