@@ -1,6 +1,6 @@
 # 模板文件中 app.config.js 配置说明
 
-`app.config.js` 文件是整个项目的配置文件，很多配置可以直接覆盖 cl-scripts 中默认配置，尤其针对 webpack 配置这一块。
+`app.config.js` 文件是整个项目的配置文件，很多配置可以直接覆盖 cl-scripts 中默认配置，尤其针对 webpack 配置这一块。每次修改后需要重新启动（编译）项目。
 
 ## 参数配置
 
@@ -85,10 +85,17 @@
 </tr>
 
 <tr>
+<td>outputLibrary</td>
+<td>null</td>
+<td>Object</td>
+<td>编译出口output库类型配置，配置说明请参考webpack官网。<a href="https://webpack.docschina.org/configuration/output/#outputlibrary">查看地址</a></td>
+</tr>
+
+<tr>
 <td>entry</td>
 <td><pre>{main: "src/main.js"}</pre></td>
 <td>Object</td>
-<td>iwebpack打包的入口, 多页面时设置多入口即可</td>
+<td>iwebpack打包的入口, 多页面时设置多入口即可. 设置的对象会和默认做合并操作</td>
 </tr>
 
 <tr>

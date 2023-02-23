@@ -16,6 +16,7 @@ process.on("unhandledRejection", (err) => {
 });
 
 console.log(chalk.blue(`${process.env.NODE_ENV}开始编译……`));
+console.log(`通过${chalk.bold("Ctrol+C")}可终止命令`);
 
 if (!checkRequiredFiles(Object.values(AppConfig.entry))) {
   process.exit(1);
@@ -39,7 +40,7 @@ const devServer = new WebpackDevServer(
     compress: true,
     static: {
       directory: appPaths.appPublic,
-      publicPath: [AppConfig.publicPath],
+      // publicPath: [AppConfig.publicPath],
       watch: true,
     },
     client: {

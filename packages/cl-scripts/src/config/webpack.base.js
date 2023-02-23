@@ -113,6 +113,7 @@ module.exports = (webpackEnv) => {
         : isEnvDevelopment && "static/js/[name].chunk.js",
       assetModuleFilename: "static/media/[name].[hash][ext]",
       publicPath: AppConfig.publicPath,
+      ...(AppConfig.outputLibrary ? { library: AppConfig.outputLibrary } : {}),
     },
     resolve: {
       modules: ["node_modules", appPaths.appNodeModules],
@@ -326,6 +327,7 @@ module.exports = (webpackEnv) => {
           title: AppConfig.title || "",
           isdev: process.env.NODE_ENV === "development",
           publicPath: AppConfig.publicPath,
+          ...AppConfig.templateParams,
         },
         minify: isEnvProduction
           ? {
