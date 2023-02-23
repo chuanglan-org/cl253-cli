@@ -10,66 +10,23 @@ const download = require("download");
 const { log } = console;
 // const downVesion="master";
 const downVesion = "2.0.0";
-/* ========== 获取模板资源 ========== */
-const getTempFile = ({ tempName }) => {
-  return new Promise((resolve, reject) => {
-    const spinner = ora(`准备远程拉取${chalk.blue.bold(tempName)}模板资源`).start();
-    axios
-      .get(`https://api.github.com/repos/chuanglan-org/cl253-cli/git/trees/${downVesion}?recursive=1`)
-      .then((res) => {
-        spinner.succeed(chalk.green("数据拉取成功！"));
-        resolve(res.data?.tree);
-      })
-      .catch((err) => {
-        spinner.fail(chalk.red("拉取资源失败!"));
-        process.exit();
-      });
-  });
-};
 /* ========== 下载模板资源 ========== */
 const downTempFile = ({ gitData, rootDir, projectParams }) => {
   const spinner = ora("准备下载模板文件").start();
-  const tempdir = `packages/template/${projectParams.app_temp}`;
-  const filterList = gitData.filter((item) => {
-    return item.type === "blob" && item.path.indexOf(tempdir) !== -1;
-  });
-  if (filterList.length === 0) {
-    log(chalk.red("下载的模板为空！"));
-    process.exit(1);
-  }
+  const tempdir = `packages/template/zip/${projectParams.app_temp}.zip`;
   const downloadPath = path.join(rootDir, "__download__"); // 模板存放临时目录
-  const promiseArr = filterList.map((ele) => {
-    const currentDir = ele.path.replace(`${tempdir}/`, "");
-    const exportUrl = path.join(downloadPath, currentDir);
-    const exportUrlArr = exportUrl.split("/");
-    exportUrlArr.pop();
-    fse.ensureDirSync(exportUrlArr.join("/"));
-    return new Promise((resolve, reject) => {
-      spinner.text = `准备下载${currentDir}`;
-      download(`https://github.com/chuanglan-org/cl253-cli/raw/${downVesion}/${ele.path}`)
-        .then((data) => {
-          spinner.text = `${currentDir}下载完成，准备写入`;
-          fse.writeFileSync(exportUrl, data);
-          spinner.text = "从github下载速度有些慢，耐心等待...";
-          resolve();
-        })
-        .catch((err) => {
-          log("下载报错信息：", err);
-          reject();
-        });
-    });
-  });
-
+  const exportUrl = path.join(downloadPath, `${projectParams.app_temp}.zip`);
   return new Promise((resolve, reject) => {
-    Promise.all(promiseArr)
-      .then((res) => {
-        spinner.succeed(chalk.green("资源下载成功"));
+    download(`https://github.com/chuanglan-org/cl253-cli/raw/${downVesion}/${tempdir}`)
+      .then((data) => {
+        spinner.text = "模板下载完成，准备写入";
+        fse.writeFileSync(exportUrl, data);
+        process.exit(1);
         resolve();
       })
       .catch((err) => {
-        spinner.fail(chalk.red("资源下载失败"));
+        log("下载报错信息：", err);
         reject();
-        process.exit(1);
       });
   });
 };
@@ -96,7 +53,6 @@ const editTemp = ({ rootDir, projectParams }) => {
 };
 
 module.exports = {
-  getTempFile,
   downTempFile,
   editTemp,
 };

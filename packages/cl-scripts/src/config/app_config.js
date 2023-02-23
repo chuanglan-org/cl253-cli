@@ -11,10 +11,12 @@ if (fse.existsSync(appPaths.appConfig)) {
   try {
     appConfig = require(appPaths.appConfig);
   } catch (error) {
-    log(chalk.error(`${appPaths.appConfig}文件格式需要commonjs类型，如module.exports={}`));
+    log(chalk.red(`${appPaths.appConfig}文件格式需要commonjs类型，如module.exports={}`));
+    process.exit(1);
   }
 } else {
-  log(chalk.error("app.config.js不存在"));
+  log(chalk.red("app.config.js不存在"));
+  process.exit(1);
 }
 
 const appPackageJson = require(appPaths.appPackageJson);
@@ -65,6 +67,7 @@ module.exports = {
   }),
   publicPath: appConfig.publicPath || "/",
   extensions: appConfig.extensions || [".js", ".jsx", ".ts", ".tsx", ".less", ".json"],
+  templateParams: appConfig.templateParams || {},
   modulesAlias: setAlias({
     "@": "src",
     components: "src/components",
@@ -76,5 +79,4 @@ module.exports = {
   env: appConfig.env || {},
   plugins: appConfig.plugins || [],
   devServer: appConfig.devServer || {},
-  webpackConfig: appConfig.webpackConfig || null,
 };

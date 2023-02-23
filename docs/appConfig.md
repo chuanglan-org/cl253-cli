@@ -106,6 +106,18 @@
 </tr>
 
 <tr>
+<td>templateParams</td>
+<td><pre>{ title: AppConfig.title || "", 
+
+          isdev: process.env.NODE_ENV === "development",
+          publicPath: AppConfig.publicPath,
+          }</pre></td>
+
+<td>Object</td>
+<td>index.html模板的变量，设置该参数后会合并默认值。可以在html模板中设置<%= 变量名 %>即可获得对应的值</td>
+</tr>
+
+<tr>
 <td>modulesAlias</td>
 <td><pre>{
   "@": "src", 

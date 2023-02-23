@@ -7,7 +7,7 @@ const packageJson = require("../package.json");
 const ora = require("ora");
 
 const { getProjectDir, checkTemp, setProjectParams, tempList, clearConsole } = require("../src/utils");
-const { getTempFile, downTempFile, editTemp } = require("./downloader");
+const { downTempFile, editTemp } = require("./downloader");
 
 const { log } = console;
 
@@ -30,11 +30,8 @@ const creatProject = async (dirname, { temp }) => {
     spinner.succeed(chalk.green("项目文件夹创建成功"));
   }
 
-  // 拉取模板资源
-  const gitData = await getTempFile({ tempName });
-
   // 下载资源
-  await downTempFile({ gitData, rootDir, projectParams });
+  await downTempFile({ rootDir, projectParams });
   // 配置信息，把模板里的内容进行参数配置
   await editTemp({ rootDir, projectParams });
   clearConsole();
@@ -54,7 +51,7 @@ const init = () => {
     .description(chalk.blue("命令示例：cl253-cli myapp"))
     .version(packageJson.version, "-V, --version", chalk.dim("脚手架当前版本"))
     .helpOption("-H, --help", chalk.dim("帮助信息"))
-    .showHelpAfterError(chalk.red(`格式错误，通过命令"${chalk.green("cl253-cli -H")}"查看帮助信息`));
+    .showHelpAfterError(chalk.red(`命令格式错误，通过命令"${chalk.green("cl253-cli -H")}"查看帮助信息`));
   let tempOptMsg = "从下列项目类型中选择一个: \n";
   tempList.forEach((item) => {
     tempOptMsg += `${chalk.blue(item.value)} ${item.name} \n`;
