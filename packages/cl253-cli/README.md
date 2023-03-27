@@ -20,3 +20,5 @@ npx cl253-cli [项目名称]
 ```
 cl253-cli -H
 ```
+
+ [更多信息请阅读](https://github.com/chuanglan-org/cl253-cli/blob/master/docs/index.md)

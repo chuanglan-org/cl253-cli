@@ -94,7 +94,7 @@ module.exports = (webpackEnv) => {
   };
 
   return {
-    target: "browserslist",
+    target: "web",
     stats: "errors-warnings",
     mode: isEnvProduction ? "production" : "development",
     bail: isEnvProduction, // 当生产环境时，只要编译报错就退出

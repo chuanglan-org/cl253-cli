@@ -1,13 +1,14 @@
 "use strict";
 const chalk = require("chalk");
 const { Command } = require("commander");
+
 const fse = require("fs-extra");
 const path = require("path");
 const packageJson = require("../package.json");
 const ora = require("ora");
 
 const { getProjectDir, checkTemp, setProjectParams, tempList, clearConsole } = require("../src/utils");
-const { downTempFile, editTemp } = require("./downloader");
+const { getTempFile, downTempFile, editTemp } = require("./downloader");
 
 const { log } = console;
 
@@ -51,7 +52,7 @@ const init = () => {
     .description(chalk.blue("命令示例：cl253-cli myapp"))
     .version(packageJson.version, "-V, --version", chalk.dim("脚手架当前版本"))
     .helpOption("-H, --help", chalk.dim("帮助信息"))
-    .showHelpAfterError(chalk.red(`命令格式错误，通过命令"${chalk.green("cl253-cli -H")}"查看帮助信息`));
+    .showHelpAfterError(chalk.red(`格式错误，通过命令"${chalk.green("cl253-cli -H")}"查看帮助信息`));
   let tempOptMsg = "从下列项目类型中选择一个: \n";
   tempList.forEach((item) => {
     tempOptMsg += `${chalk.blue(item.value)} ${item.name} \n`;

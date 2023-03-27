@@ -1,0 +1,18 @@
+{
+  "name": "cl253-cli_template",
+  "version": "2.0.1-alpha.2",
+  "keywords": [
+    "react",
+    "cl253-cli"
+  ],
+  "description": "The base template for cl253-cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chuanglan-org/cl253-cli.git",
+    "directory": "packages/template"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  }
+}

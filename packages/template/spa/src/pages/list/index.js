@@ -3,7 +3,6 @@ import { message, Table, Modal, Button, Space } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import Box from "components/box";
 import axios from "@/plugins/axios";
-import moment from "moment";
 import { useSelector } from "react-redux";
 
 const { confirm } = Modal;
@@ -52,9 +51,6 @@ export default () => {
       title: "创建时间",
       dataIndex: "create_time",
       width: 120,
-      render: (text, record) => {
-        return moment(text).format("YYYY-MM-DD HH:mm:ss");
-      },
     },
     {
       title: "操作",
