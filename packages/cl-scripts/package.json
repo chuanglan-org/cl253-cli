@@ -1,0 +1,67 @@
+{
+  "name": "cl-scripts",
+  "version": "2.0.2",
+  "description": "chuanglan scripts fro cl253-cli",
+  "author": "",
+  "license": "ISC",
+  "files": [
+    "bin",
+    "src"
+  ],
+  "bin": {
+    "cl-scripts": "./bin/index.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/eslint-parser": "^7.19.1",
+    "address": "^1.2.2",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "@svgr/webpack": "^6.5.1",
+    "babel-loader": "^9.1.2",
+    "babel-plugin-named-asset-import": "^0.3.8",
+    "babel-preset-react-app": "^10.0.1",
+    "case-sensitive-paths-webpack-plugin": "^2.4.0",
+    "chalk": "^4.1.2",
+    "cross-spawn": "^7.0.3",
+    "css-loader": "^6.7.3",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "file-loader": "^6.2.0",
+    "filemanager-webpack-plugin": "^8.0.0",
+    "fs-extra": "^11.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "less-loader": "^11.1.0",
+    "mini-css-extract-plugin": "^2.7.2",
+    "ora": "^5.4.1",
+    "postcss": "^8.4.21",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-loader": "^7.0.2",
+    "postcss-normalize": "^10.0.1",
+    "postcss-preset-env": "^8.0.1",
+    "react-refresh": "^0.14.0",
+    "resolve-url-loader": "^5.0.0",
+    "sass-loader": "^13.2.0",
+    "source-map-loader": "^3.0.2",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.6",
+    "webpack": "^5.75.0",
+    "webpackbar": "^5.0.2",
+    "webpack-bundle-analyzer": "^4.8.0",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-manifest-plugin": "^5.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

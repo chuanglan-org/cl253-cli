@@ -1,0 +1,97 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-feature-settings: "tnum";
+  background-color: #fff;
+  color: #666a77;
+  font-size: 12px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  padding: 0;
+  margin: 0;
+}
+
+/* 切换页面时渐入渐出 */
+.page-fade-enter {
+  opacity: 0;
+}
+.page-fade-enter-active {
+  opacity: 1;
+  transition: all 1s;
+}
+.page-fade-exit {
+  display: none !important;
+}
+.page-fade-exit-active {
+  display: none !important;
+}
+
+/* nprogress样式 */
+#nprogress {
+  pointer-events: none;
+  .bar {
+    background: @primary-color;
+    position: fixed;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+  }
+  .peg {
+    display: block;
+    position: absolute;
+    right: 0px;
+    width: 100px;
+    height: 100%;
+    box-shadow: 0 0 10px @primary-color, 0 0 5px @primary-color;
+    opacity: 1;
+    transform: rotate(3deg) translate(0px, -4px);
+  }
+  .spinner {
+    display: block;
+    position: fixed;
+    z-index: 1031;
+    top: 15px;
+    right: 15px;
+  }
+  .spinner-icon {
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+    border: solid 2px transparent;
+    border-top-color: @primary-color;
+    border-left-color: @primary-color;
+    border-radius: 50%;
+    animation: nprogress-spinner 400ms linear infinite;
+  }
+}
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+  #nprogress .spinner {
+    position: absolute;
+  }
+  .bar {
+    #nprogress .spinner;
+  }
+}
+
+@keyframes nprogress-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// 重置antd
+.ant-menu {
+  font-size: 14px;
+  user-select: none;
+}
+.ant-menu-inline-collapsed {
+  width: 60px;
+}
